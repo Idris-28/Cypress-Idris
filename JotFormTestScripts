@@ -1,0 +1,195 @@
+describe('JotForm SIGN UP Page', () =>{
+
+       beforeEach(() {
+
+       cy.visit('https://www.jotform.com/signup/')
+
+       })
+
+ 
+
+       it('SIGN UP Page Display', () => {
+
+              cy.contains('Sign Up Now!')
+
+              cy.get('#suUsername')
+
+              .contains('Username')
+
+              .should('exist')
+
+              cy.get('#suEmail')
+
+              .contains('Email')
+
+              .should('exist')
+
+              cy.get('#suPassword')
+
+              .contains('Password')
+
+              .should('exist')
+
+              cy.get('#suPasswordConf')
+
+              .contains('Confirm Password')
+
+              .should('exist')
+
+              cy.get('#signupButton')
+
+              .contains('CREATE MY ACCOUNT')
+
+              .should('exist')
+
+              cy.screenshot()
+
+       })
+
+ 
+
+              it('SIGN UP Page Validation Message - All Blank', () => {
+
+              cy.get('#signupButton').click()
+
+              cy.contains('Username cannot be left blank')
+
+              .should('exist')
+
+              cy.contains('Email cannot be blank')
+
+              .should('not.exist')
+
+              cy.contains('Password cannot be left blank')
+
+              .should('not.exist')
+
+       })
+
+ 
+
+              it('SIGN UP Page Validation Messages', () => {
+
+              cy.get('#suUsername').type('Eagle')
+
+              cy.get('#signupButton').click()
+
+              cy.contains('Username cannot be left blank')
+
+              .should('not.exist')
+
+              cy.contains('Username not available')
+
+              .should('exist')
+
+              cy.contains('Email cannot be blank')
+
+              .should('exist')
+
+              cy.contains('Password cannot be left blank')
+
+              .should('exist')
+
+              cy.screenshot()
+
+              cy.get('#suEmail').type('Sethupathi')
+
+              cy.get('#signupButton').click()
+
+              cy.contains('Email cannot be blank')
+
+              .should('not.exist')
+
+              cy.contains('Email not available')
+
+              .should('not.exist')
+
+              cy.get('suPassword').type('ok')
+
+              cy.get('#signupButton').click()
+
+              cy.contains('Password cannot be left blank')
+
+              .should('not.exist')
+
+              cy.contains('Password ok')
+
+              .should('exist')
+
+              cy.contains('Passwords do not match')
+
+              .should('exist')
+
+              cy.get('suPasswordConf').type('ok')
+
+              cy.get('#signupButton').click()
+
+              cy.contains('Password ok')
+
+              .should('exist')
+
+              cy.contains('Password confirmation OK')
+
+              .should('exist')
+
+       })
+
+ 
+
+       it('SIGN UP Page - Creating a User Successfully', () => {
+
+              cy.get('#suUsername').type('Bavithra')
+
+              cy.contains('Username is available')
+
+              cy.get('#suEmail').type('bavithra0511@gmail.com')
+
+              cy.contains('Email is available')
+
+              cy.get('#suPassword').type('iamvijayfan')
+
+              cy.contains('Password ok')
+
+              cy.get('#suPasswordConf').type('iamvijayfan')
+
+              cy.contains('Password confirmation OK')
+
+              cy.get('#signupButton').click()
+
+              cy.conatins('Help us understand your needs.')
+
+              .should(exist)
+
+              cy.conatins('Head start your JotForm experience with more related contents and solutions for your business.')
+
+              .should(exist)
+
+              cy.contains('Full Name')
+
+              cy.get('#new_user_name').type('Bavithra Aravind')         //Text Field
+
+              cy.contains('Company Name')
+
+              cy.get('#new_company_name').type('Yogi R Tech')          //Text Field
+
+              cy.contains('Job Title')
+
+              cy.get('#new_title').type('Director').click             // Dropdown Field
+
+              cy.contains('Search for industry')
+
+              cy.get('#new_industry_type').type('Software').click    // Search Field
+
+              cy.get('#finishButton').click
+
+              cy.contains('YOU DON'T HAVE ANY FORMS YET.')
+
+              .should(exist)
+
+              cy.contains('Your forms will appear here once you create one.')
+
+              .should(exist)
+
+       })
+
+})
